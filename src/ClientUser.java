@@ -35,9 +35,9 @@ public class ClientUser {
             System.out.println("     Key    Description");
             System.out.println("   ----------------------------");
             System.out.println("     C      Create new Category");
-//            System.out.println("     T      Enter new Transaction");
+            System.out.println("     T      Enter new Transaction");
             System.out.println("     A      List All Categoty");
-//            System.out.println("     L      List all Transaction");
+            System.out.println("     L      List Transaction");
             System.out.println("     D      Delete a  Category");
             System.out.println("     E      Edit a  Category");
             System.out.println("     X      Exit Application");
@@ -61,12 +61,18 @@ public class ClientUser {
                 case 'e':
                     ua.editCategory();
                     break;
+                case 'T':
+                case 't':
+                    ua.addTransaction();
+                    break;
+                case 'L':
+                case 'l':
+                    ua.ListTransaction();
+                    break;
                 case 'X':
                 default:
                     return;
             }
-
-
         }
     }
 }

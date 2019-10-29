@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
+
 
 public class UserActivity {
 
@@ -50,8 +50,9 @@ public class UserActivity {
     public void addTransaction() throws IOException {
         String transaction_name;
         double amount;
-        String description;
-        int id;
+        String description,categoryType;
+        int typeid;
+
 
         System.out.println("Name of the transaction");
         transaction_name=br.readLine();
@@ -59,12 +60,14 @@ public class UserActivity {
         amount=Double.parseDouble(br.readLine());
         System.out.println("Enter any Description or if you don't need this just press enter");
         description=br.readLine();
-        System.out.println("Enter the Category ID");
-        id=Integer.parseInt(br.readLine());
-        System.out.println("Enter the Type of the transaction");
-        int typeid=Integer.parseInt(br.readLine());
+        System.out.println("Enter the Name of the Category");
+        categoryType=br.readLine();
+        System.out.println("Enter the Type of the transaction (1 for Incomr 2 for Expense)");
+        typeid=Integer.parseInt(br.readLine());
+        java.util.Date date=new java.util.Date();
 
-//        transaction =new Transaction(transaction_name,amount,description,id,);
+        Transaction transaction =new Transaction(amount,description,typeid,categoryType,date,transaction_name);
+        man.addTransaction(transaction);
 
     }
 
@@ -90,7 +93,7 @@ public class UserActivity {
         String name;
         double amount;
 
-        System.out.println("Enter the Category ID that you wnat to delete ");
+        System.out.println("Enter the Category ID that you wnat to edit ");
         id=Integer.parseInt(br.readLine());
 
         System.out.println("Change the Name of the Category :");
@@ -100,6 +103,18 @@ public class UserActivity {
         amount = Double.parseDouble(br.readLine());
 
         man.editCategory(name,amount,id);
+    }
+
+    public void ListTransaction() throws IOException {
+        System.out.println("Enter 1 for Income and 2 for Expense ");
+        int id=Integer.parseInt(br.readLine());
+
+        if(id==1){
+            man.displayIncome();
+        }
+        if(id==2){
+            man.displayExpense();
+        }
     }
 
     private void getKey(){

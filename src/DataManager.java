@@ -46,8 +46,8 @@ public class DataManager {
 
         try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/employees.json"))
         {
-            Object obj = jsonParser.parse(reader);
 
+            Object obj = jsonParser.parse(reader);
             Categorylist = (JSONArray) obj;
             for(int i = 0; i < Categorylist.size(); i++)
             {
@@ -130,8 +130,80 @@ public class DataManager {
     }
 
     public void addTransaction(Transaction transaction){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray transactionList = new JSONArray();
+        int id;
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        {
+            if (reader.read()!=-1) {
+                Object obj = jsonParser.parse(reader);
+                transactionList = (JSONArray) obj;
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        JSONObject transactionDetails = new JSONObject();
+        transactionDetails.put("transactionId",transactionList.size());
+        transactionDetails.put("Name",transaction.getName());
+        transactionDetails.put("Amount",transaction.getAmount());
+        transactionDetails.put("Description",transaction.getDescription());
+        transactionDetails.put("Category",transaction.getCategory());
+        transactionDetails.put("Type",transaction.getType());
+        transactionDetails.put("Date",transaction.getDate().toString());
+        transactionList.add(transactionDetails);
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/transaction.json")) {
 
+            file.write(transactionList.toString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    public void displayExpense(){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray transactionList=new JSONArray();
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        {
+//            if (reader.read()!=-1) {
+                Object obj = jsonParser.parse(reader);
+                transactionList = (JSONArray) obj;
+                for (int i = 0; i < transactionList.size(); i++) {
+                    JSONObject objects = (JSONObject) transactionList.get(i);
+                    if ((long)objects.get("Type") == 2) {
+                        System.out.println("Transaction ID :" + objects.get("transactionId") + "  Transaction Name  :" + objects.get("Name") + "  Amount :" + objects.get("Amount")+"  Description :"+objects.get("Description")+"   Category:"+objects.get("Category"));
+                    }
+                }
+//            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void displayIncome(){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray transactionList=new JSONArray();
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        {
+                Object obj = jsonParser.parse(reader);
+                transactionList = (JSONArray) obj;
+                for (int i = 0; i < transactionList.size(); i++) {
+                    JSONObject objects = (JSONObject) transactionList.get(i);
+                    if ((long)objects.get("Type") == 1) {
+                        System.out.println("Transaction ID :" + objects.get("transactionId") + "Transaction Name  :" + objects.get("Name") + "  Amount :" + objects.get("Amount")+"  Description :"+objects.get("Description")+"   Category:"+objects.get("Category"));
+                    }
+                }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }
