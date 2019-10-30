@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 import java.io.FileWriter;
+import java.util.HashSet;
 
 
 public class DataManager {
@@ -14,22 +15,30 @@ public class DataManager {
     public void createCategoryinfile(Category category){
         JSONParser jsonParser = new JSONParser();
         JSONArray categoryList = new JSONArray();
-        int id;
+        int maxid=-1;
 
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/employees.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory.json"))
         {
             Object obj = jsonParser.parse(reader);
             categoryList = (JSONArray) obj;
 
+            if (!categoryList.isEmpty()) {
+                for (int i = 0; i < categoryList.size(); i++) {
+                    JSONObject temp = (JSONObject) categoryList.get(i);
+                    if (Long.valueOf((Long) temp.get("Id")).intValue() > maxid) {
+                        maxid = Long.valueOf((Long) temp.get("Id")).intValue();
+                    }
+                }
+            }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         JSONObject categoryDetails = new JSONObject();
-        categoryDetails.put("Id",categoryList.size());
+        categoryDetails.put("Id",maxid+1);
         categoryDetails.put("Name",category.getName());
         categoryDetails.put("Amount",category.getAmount());
         categoryList.add(categoryDetails);
-        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/employees.json")) {
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/catagory.json")) {
 
             file.write(categoryList.toString());
             file.flush();
@@ -44,7 +53,7 @@ public class DataManager {
         JSONParser jsonParser = new JSONParser();
         JSONArray Categorylist=new JSONArray();
 
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/employees.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory.json"))
         {
 
             Object obj = jsonParser.parse(reader);
@@ -68,7 +77,7 @@ public class DataManager {
         JSONParser jsonParser = new JSONParser();
         JSONArray Categorylist= new JSONArray();
 
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/employees.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory.json"))
         {
             Object obj = jsonParser.parse(reader);
             Categorylist = (JSONArray) obj;
@@ -87,7 +96,7 @@ public class DataManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/employees.json")) {
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/catagory.json")) {
             file.write(Categorylist.toString());
             file.flush();
         } catch (IOException e) {
@@ -100,7 +109,7 @@ public class DataManager {
         JSONParser jsonParser = new JSONParser();
         JSONArray Categorylist= new JSONArray();
 
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/employees.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory.json"))
         {
             Object obj = jsonParser.parse(reader);
             Categorylist = (JSONArray) obj;
@@ -120,7 +129,7 @@ public class DataManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/employees.json")) {
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/catagory.json")) {
             file.write(Categorylist.toString());
             file.flush();
         } catch (IOException e) {
@@ -132,18 +141,22 @@ public class DataManager {
     public void addTransaction(Transaction transaction){
         JSONParser jsonParser = new JSONParser();
         JSONArray transactionList = new JSONArray();
-        int id;
+        int maxid = -1;
         try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
         {
-            if (reader.read()!=-1) {
                 Object obj = jsonParser.parse(reader);
                 transactionList = (JSONArray) obj;
+            for (int i=0;i<transactionList.size();i++){
+                JSONObject temp= (JSONObject) transactionList.get(i);
+                if(Long.valueOf((Long) temp.get("transactionId")).intValue()>maxid) {
+                    maxid=Long.valueOf((Long) temp.get("transactionId")).intValue();
+                }
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         JSONObject transactionDetails = new JSONObject();
-        transactionDetails.put("transactionId",transactionList.size());
+        transactionDetails.put("transactionId",maxid+1);
         transactionDetails.put("Name",transaction.getName());
         transactionDetails.put("Amount",transaction.getAmount());
         transactionDetails.put("Description",transaction.getDescription());
@@ -205,5 +218,97 @@ public class DataManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteTransaction(int id){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Transactionlist= new JSONArray();
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Transactionlist = (JSONArray) obj;
+            for(int i = 0; i < Transactionlist.size(); i++)
+            {
+                JSONObject objects=(JSONObject) Transactionlist.get(i);
+                if((long)objects.get("Id")==id){
+                    Transactionlist.remove(i);
+                }
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/transaction.json")) {
+            file.write(Transactionlist.toString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        displayCategory();
+    }
+
+
+    public void editTransaction(String Name,double amount,int id,String description,String Category){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Categorylist= new JSONArray();
+
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Categorylist = (JSONArray) obj;
+            JSONObject objects=null;
+            for(int i = 0; i < Categorylist.size(); i++)
+            {
+                objects=(JSONObject) Categorylist.get(i);
+                if((long)objects.get("transactionId")==id){
+                    objects.put("Name",Name);
+                    objects.put("Amount",amount);
+                    objects.put("Category",Category);
+                    objects.put("Description",description);
+
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/transaction.json")) {
+            file.write(Categorylist.toString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getUniqueCategory(){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Categorylist= new JSONArray();
+        HashSet<String> uniqueCategory=new HashSet<>();
+
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/employees.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Categorylist = (JSONArray) obj;
+            JSONObject objects=null;
+            for(int i = 0; i < Categorylist.size(); i++)
+            {
+                objects=(JSONObject) Categorylist.get(i);
+                uniqueCategory.add(objects.get("Name").toString());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println(uniqueCategory);
     }
 }

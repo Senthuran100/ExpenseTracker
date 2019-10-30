@@ -60,7 +60,8 @@ public class UserActivity {
         amount=Double.parseDouble(br.readLine());
         System.out.println("Enter any Description or if you don't need this just press enter");
         description=br.readLine();
-        System.out.println("Enter the Name of the Category");
+        System.out.print("Enter the Name of the Category");
+        man.getUniqueCategory();
         categoryType=br.readLine();
         System.out.println("Enter the Type of the transaction (1 for Incomr 2 for Expense)");
         typeid=Integer.parseInt(br.readLine());
@@ -117,6 +118,17 @@ public class UserActivity {
         }
     }
 
+    public void deleteTransaction(){
+        System.out.println("Enter the Transaction ID that you want to delete ");
+        int id=0;
+        try {
+            id = Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        man.deleteTransaction(id);
+    }
+
     private void getKey(){
         try {
             System.out.println("\n\n\n\n\n\n\nPress any key to continue...");
@@ -125,6 +137,35 @@ public class UserActivity {
 
         }
     }
+
+
+    public void editTransaction() throws IOException {
+        int id;
+        String name;
+        double amount;
+
+        System.out.println("Enter the Transaction ID that you want to edit ");
+        id=Integer.parseInt(br.readLine());
+
+        System.out.println("Change the Name of the Transaction :");
+        name = br.readLine();
+
+        System.out.println("Enter the New Amount of that Transaction");
+        amount = Double.parseDouble(br.readLine());
+
+        System.out.println("Enter the Description");
+        String Description= br.readLine();
+
+        System.out.println("Enter the Category");
+        String category=br.readLine();
+
+
+        man.editTransaction(name,amount,id,Description,category);
+
+        man.editCategory(name,amount,id);
+    }
+
+
 
 
 }

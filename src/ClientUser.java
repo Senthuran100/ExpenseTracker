@@ -30,21 +30,25 @@ public class ClientUser {
 
         UserActivity ua = new UserActivity();
         while (true) {
-            System.out.println("   Menu");
+
+            System.out.println("            Menu");
+            System.out.println("   -----------------------------------------------------");
+            System.out.println("        Key       Description");
             System.out.println("   ----------------------------");
-            System.out.println("     Key    Description");
-            System.out.println("   ----------------------------");
-            System.out.println("     C      Create new Category");
-            System.out.println("     T      Enter new Transaction");
-            System.out.println("     A      List All Categoty");
-            System.out.println("     L      List Transaction");
-            System.out.println("     D      Delete a  Category");
-            System.out.println("     E      Edit a  Category");
-            System.out.println("     X      Exit Application");
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n----------------------------");
+            System.out.println("        C      Create new Category");
+            System.out.println("        T      Enter new Transaction");
+            System.out.println("        A      List All Categoty");
+            System.out.println("        L      List Transaction");
+            System.out.println("        D      Delete a  Category");
+            System.out.println("        B      Delete a  Transaction");
+            System.out.println("        E      Edit a  Category");
+            System.out.println("        R      Edit a  Transaction");
+            System.out.println("        X      Exit Application");
+            System.out.println("\n\n\n----------------------------------------------------");
             System.out.print("   Your option: ");
             char ch = ua.getOption();
             switch (ch) {
+
                 case 'C':
                 case 'c':
                     ua.createnewCategory();
@@ -68,6 +72,14 @@ public class ClientUser {
                 case 'L':
                 case 'l':
                     ua.ListTransaction();
+                    break;
+                case 'B':
+                case 'b':
+                    ua.deleteTransaction();
+                    break;
+                case 'R':
+                case 'r':
+                    ua.editTransaction();
                     break;
                 case 'X':
                 default:
