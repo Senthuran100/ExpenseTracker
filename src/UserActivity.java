@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 
 public class UserActivity {
@@ -66,7 +67,6 @@ public class UserActivity {
         description=br.readLine();
         System.out.print("Enter the Name of the Category");
         System.out.print("Select from this catagort   ");
-//        getUniqueCategoty();
         categoryType=br.readLine();
         System.out.println("Enter the Type of the transaction (1 for Incomr 2 for Expense)");
         typeid=Integer.parseInt(br.readLine());
@@ -156,6 +156,17 @@ public class UserActivity {
         getKey();
     }
 
+    public void showInDetail(){
+        System.out.println("Total Expense : "+man.getTotalExpense()+"  Total Buget for this month : "+man.getTotalBudget() );
+        LinkedHashMap<String,Double> getexpensebyCatagory =man.getExpenseByCatagory();
+        LinkedHashMap<String,Double> getexpensebyBudget =man.getCatagoryAmount();
+        HashSet<String> uniqueCategory=man.getUniqueCategory();
+        for (String s:uniqueCategory){
+           System.out.println("Catagory Name : "+s+" Expense : "+getexpensebyCatagory.get(s)+" Budget Allocated : "+getexpensebyBudget.get(s));
+        }
+        getKey();
+    }
+
 
     public void editTransaction() throws IOException {
         int id;
@@ -177,14 +188,10 @@ public class UserActivity {
         System.out.println("Enter the Category");
         String category=br.readLine();
 
-
         man.editTransaction(name,amount,id,Description,category);
 
         man.editCategory(name,amount,id);
         getKey();
     }
-
-
-
 
 }

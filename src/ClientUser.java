@@ -38,7 +38,9 @@ public class ClientUser {
             System.out.println("        D      Delete a  Category");
             System.out.println("        B      Delete a  Transaction");
             System.out.println("        E      Edit a  Category");
+            System.out.println("        U      Show unique  Category");
             System.out.println("        R      Edit a  Transaction");
+            System.out.println("        G      Show in Detail");
             System.out.println("        X      Exit Application");
             System.out.println("\n\n\n----------------------------------------------------");
             System.out.print("   Your option: ");
@@ -80,6 +82,9 @@ public class ClientUser {
                 case 'u':
                 case 'U':
                     ua.getUniqueCategoty();
+                case 'g':
+                case 'G':
+                    ua.showInDetail();
                 case 'q':
                     System.out.println("You didn't input any value try entering a meaningful value");
                 case 'X':

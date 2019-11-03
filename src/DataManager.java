@@ -6,7 +6,9 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.json.simple.JSONArray;
 import java.io.FileWriter;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 
 public class DataManager {
@@ -362,4 +364,85 @@ public class DataManager {
         }
         return expense;
     }
+
+    public double getTotalBudget(){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Catagorylist= new JSONArray();
+        double totalbudget=0;
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory1.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Catagorylist = (JSONArray) obj;
+            JSONObject objects=null;
+            for(int i = 0; i < Catagorylist.size(); i++)
+            {
+                objects=(JSONObject) Catagorylist.get(i);
+                totalbudget+=(double)objects.get("Amount");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return totalbudget;
+    }
+
+    public LinkedHashMap<String, Double> getExpenseByCatagory(){
+        HashSet<String> uniqueCategory=getUniqueCategory();
+        LinkedHashMap<String, Double> categoryamount=new LinkedHashMap<String, Double>();
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Catagorylist= new JSONArray();
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Catagorylist = (JSONArray) obj;
+            JSONObject objects=null;
+            for(String s:uniqueCategory){
+              double totalamount=0;
+             for(int i = 0; i < Catagorylist.size(); i++)
+            {
+             objects=(JSONObject) Catagorylist.get(i);
+             if(objects.get("Category").equals(s)&& (long)objects.get("Type")==2) {
+                 totalamount+=(double)objects.get("Amount");
+             }
+             categoryamount.put(s,totalamount);
+            }
+           }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return categoryamount;
+    }
+
+    public LinkedHashMap<String, Double> getCatagoryAmount(){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Catagorylist= new JSONArray();
+        LinkedHashMap<String, Double> categoryamount=new LinkedHashMap<String, Double>();
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory1.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Catagorylist = (JSONArray) obj;
+            JSONObject objects=null;
+            for(int i = 0; i < Catagorylist.size(); i++)
+            {
+                objects=(JSONObject) Catagorylist.get(i);
+                categoryamount.put(objects.get("Name").toString(),(double)objects.get("Amount"));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return categoryamount;
+    }
+
+
 }
