@@ -23,9 +23,6 @@ public class ClientUser {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
 
-        String category = "";
-
-        Scanner budgetCategory = new Scanner(System.in);
         System.out.println("############# Welcome to Budget Manager #############");
 
         UserActivity ua = new UserActivity();

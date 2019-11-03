@@ -66,7 +66,7 @@ public class UserActivity {
         description=br.readLine();
         System.out.print("Enter the Name of the Category");
         System.out.print("Select from this catagort   ");
-        getUniqueCategoty();
+//        getUniqueCategoty();
         categoryType=br.readLine();
         System.out.println("Enter the Type of the transaction (1 for Incomr 2 for Expense)");
         typeid=Integer.parseInt(br.readLine());

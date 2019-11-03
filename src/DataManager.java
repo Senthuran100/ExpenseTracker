@@ -55,7 +55,6 @@ public class DataManager {
 
         try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/catagory1.json"))
         {
-
             Object obj = jsonParser.parse(reader);
             Categorylist = (JSONArray) obj;
             for(int i = 0; i < Categorylist.size(); i++)
