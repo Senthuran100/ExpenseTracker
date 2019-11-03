@@ -30,7 +30,6 @@ public class ClientUser {
 
         UserActivity ua = new UserActivity();
         while (true) {
-
             System.out.println("            Menu");
             System.out.println("   -----------------------------------------------------");
             System.out.println("        Key       Description");
@@ -46,9 +45,9 @@ public class ClientUser {
             System.out.println("        X      Exit Application");
             System.out.println("\n\n\n----------------------------------------------------");
             System.out.print("   Your option: ");
+
             char ch = ua.getOption();
             switch (ch) {
-
                 case 'C':
                 case 'c':
                     ua.createnewCategory();
@@ -81,6 +80,11 @@ public class ClientUser {
                 case 'r':
                     ua.editTransaction();
                     break;
+                case 'u':
+                case 'U':
+                    ua.getUniqueCategoty();
+                case 'q':
+                    System.out.println("You didn't input any value try entering a meaningful value");
                 case 'X':
                 default:
                     return;

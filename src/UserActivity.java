@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 
 
 public class UserActivity {
@@ -28,7 +29,10 @@ public class UserActivity {
             e.printStackTrace();
         }
         line.toUpperCase();
-        return line.charAt(0);
+        if(!line.equals("")){
+            return line.charAt(0);
+        }
+        return 'q';
     }
 
 
@@ -61,7 +65,8 @@ public class UserActivity {
         System.out.println("Enter any Description or if you don't need this just press enter");
         description=br.readLine();
         System.out.print("Enter the Name of the Category");
-        man.getUniqueCategory();
+        System.out.print("Select from this catagort   ");
+        getUniqueCategoty();
         categoryType=br.readLine();
         System.out.println("Enter the Type of the transaction (1 for Incomr 2 for Expense)");
         typeid=Integer.parseInt(br.readLine());
@@ -69,13 +74,13 @@ public class UserActivity {
 
         Transaction transaction =new Transaction(amount,description,typeid,categoryType,date,transaction_name);
         man.addTransaction(transaction);
-
+        getKey();
     }
 
     public void listCategory() throws IOException, ClassNotFoundException {
 
        man.displayCategory();
-
+        getKey();
     }
 
     public void deleteCategory(){
@@ -87,6 +92,7 @@ public class UserActivity {
             e.printStackTrace();
         }
         man.deleteCategory(id);
+        getKey();
     }
 
     public void editCategory() throws IOException {
@@ -104,6 +110,7 @@ public class UserActivity {
         amount = Double.parseDouble(br.readLine());
 
         man.editCategory(name,amount,id);
+        getKey();
     }
 
     public void ListTransaction() throws IOException {
@@ -116,6 +123,9 @@ public class UserActivity {
         if(id==2){
             man.displayExpense();
         }
+        System.out.println("Your Total Expense  :"+man.getTotalExpense());
+        System.out.println("Your Total Income  :"+man.getTotalIncome());
+        getKey();
     }
 
     public void deleteTransaction(){
@@ -127,15 +137,23 @@ public class UserActivity {
             e.printStackTrace();
         }
         man.deleteTransaction(id);
+        getKey();
     }
 
     private void getKey(){
         try {
-            System.out.println("\n\n\n\n\n\n\nPress any key to continue...");
+            System.out.println("\n\n\nPress any key to continue...");
             br.readLine();
         } catch (IOException e) {
 
         }
+    }
+
+    public void getUniqueCategoty(){
+        HashSet<String> uniqueCategory=new HashSet<>();
+        uniqueCategory=man.getUniqueCategory();
+        System.out.println(uniqueCategory);
+        getKey();
     }
 
 
@@ -163,6 +181,7 @@ public class UserActivity {
         man.editTransaction(name,amount,id,Description,category);
 
         man.editCategory(name,amount,id);
+        getKey();
     }
 
 
