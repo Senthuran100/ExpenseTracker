@@ -40,7 +40,7 @@ public class UserActivity {
     public void createnewCategory() throws IOException {
         String name;
         float amt;
-
+        System.out.println("-------"+man.isUniqueCatagory("food"));
         System.out.println("Enter the Name of the  Category: ");
         name = br.readLine();
         System.out.println("Enter the Budget that you want to allocate ");
@@ -52,28 +52,43 @@ public class UserActivity {
         getKey();
     }
 
-    public void addTransaction() throws IOException {
+    public void addIncome() throws IOException {
         String transaction_name;
         double amount;
         String description,categoryType;
-        int typeid;
+        System.out.println("Name of the Income");
+        transaction_name=br.readLine();
+        System.out.println("Enter  the amount");
+        amount=Double.parseDouble(br.readLine());
+        System.out.println("Enter any Description or if you don't need this just press enter");
+        description=br.readLine();
+        System.out.print("Select from this catagory   ");
+        categoryType=br.readLine();
+
+        java.util.Date date=new java.util.Date();
+
+        Transaction transaction =new Income(amount,description,date,transaction_name);
+        man.addIncome(transaction);
+        getKey();
+    }
 
 
-        System.out.println("Name of the transaction");
+    public void addExpense() throws IOException {
+        String transaction_name;
+        double amount;
+        String description,categoryType;
+        System.out.println("Name of the Expense");
         transaction_name=br.readLine();
         System.out.println("Enter  the amount");
         amount=Double.parseDouble(br.readLine());
         System.out.println("Enter any Description or if you don't need this just press enter");
         description=br.readLine();
         System.out.print("Enter the Name of the Category");
-        System.out.print("Select from this catagort   ");
         categoryType=br.readLine();
-        System.out.println("Enter the Type of the transaction (1 for Incomr 2 for Expense)");
-        typeid=Integer.parseInt(br.readLine());
+        Category category=new Category(categoryType);
         java.util.Date date=new java.util.Date();
-
-        Transaction transaction =new Transaction(amount,description,typeid,categoryType,date,transaction_name);
-        man.addTransaction(transaction);
+        Expense expense =new Expense(amount,description,date,transaction_name,category);
+        man.addExpense(expense);
         getKey();
     }
 
@@ -128,15 +143,27 @@ public class UserActivity {
         getKey();
     }
 
-    public void deleteTransaction(){
-        System.out.println("Enter the Transaction ID that you want to delete ");
+    public void deleteIncome(){
+        System.out.println("Enter the Income ID that you want to delete ");
         int id=0;
         try {
             id = Integer.parseInt(br.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        man.deleteTransaction(id);
+        man.deleteIncome(id);
+        getKey();
+    }
+
+    public void deleteExpense(){
+        System.out.println("Enter the Expense ID that you want to delete ");
+        int id=0;
+        try {
+            id = Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        man.deleteExpense(id);
         getKey();
     }
 
@@ -168,12 +195,12 @@ public class UserActivity {
     }
 
 
-    public void editTransaction() throws IOException {
+    public void editExpense() throws IOException {
         int id;
         String name;
         double amount;
 
-        System.out.println("Enter the Transaction ID that you want to edit ");
+        System.out.println("Enter the Expense ID that you want to edit ");
         id=Integer.parseInt(br.readLine());
 
         System.out.println("Change the Name of the Transaction :");
@@ -188,9 +215,28 @@ public class UserActivity {
         System.out.println("Enter the Category");
         String category=br.readLine();
 
-        man.editTransaction(name,amount,id,Description,category);
+        man.editExpense(name,amount,id,Description,category);
+        getKey();
+    }
 
-        man.editCategory(name,amount,id);
+    public void editIncome() throws IOException {
+        int id;
+        String name;
+        double amount;
+
+        System.out.println("Enter the Income ID that you want to edit ");
+        id=Integer.parseInt(br.readLine());
+
+        System.out.println("Change the Name of the Income :");
+        name = br.readLine();
+
+        System.out.println("Enter the New Amount of that Income");
+        amount = Double.parseDouble(br.readLine());
+
+        System.out.println("Enter the Description");
+        String Description= br.readLine();
+
+        man.editIncome(name,amount,id,Description);
         getKey();
     }
 

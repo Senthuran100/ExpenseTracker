@@ -24,16 +24,12 @@ public class Transaction {
     private String Name;
     private double Amount;
     private String Description;
-    private String Category;
-    private int Type;
     private Date date;
     private int transactionID;
 
-    Transaction(double Amount,String Description,int Type, String Category,Date date,String name) {
+    Transaction(double Amount,String Description,Date date,String name) {
       this.Amount=Amount;
       this.Description=Description;
-      this.Type=Type;
-      this.Category=Category;
       this.date=date;
       this.Name=name;
     }
@@ -70,21 +66,6 @@ public class Transaction {
         Description = description;
     }
 
-    public String getCategory() {
-        return Category;
-    }
-
-    public void setCategory(String category) {
-        Category = category;
-    }
-
-    public int getType() {
-        return Type;
-    }
-
-    public void setType(int type) {
-        Type = type;
-    }
 
     public Date getDate() {
         return date;
@@ -94,12 +75,10 @@ public class Transaction {
         this.date = date;
     }
 
-    public Transaction(String name, double amount, String description, String category, int type, Date date) {
+    public Transaction(String name, double amount, String description,Date date) {
         Name = name;
         Amount = amount;
         Description = description;
-        Category = category;
-        Type = type;
         this.date = date;
     }
 }

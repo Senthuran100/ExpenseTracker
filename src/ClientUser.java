@@ -32,14 +32,17 @@ public class ClientUser {
             System.out.println("        Key       Description");
             System.out.println("   ----------------------------");
             System.out.println("        C      Create new Category");
-            System.out.println("        T      Enter new Transaction");
+            System.out.println("        I      Enter new Income");
+            System.out.println("        T      Enter new Expense");
             System.out.println("        A      List All Categoty");
             System.out.println("        L      List Transaction");
             System.out.println("        D      Delete a  Category");
-            System.out.println("        B      Delete a  Transaction");
+            System.out.println("        B      Delete an  Income");
+            System.out.println("        S      Delete an  Expense");
             System.out.println("        E      Edit a  Category");
             System.out.println("        U      Show unique  Category");
-            System.out.println("        R      Edit a  Transaction");
+            System.out.println("        R      Edit an  Expense");
+            System.out.println("        N      Edit an  Income");
             System.out.println("        G      Show in Detail");
             System.out.println("        X      Exit Application");
             System.out.println("\n\n\n----------------------------------------------------");
@@ -50,6 +53,14 @@ public class ClientUser {
                 case 'C':
                 case 'c':
                     ua.createnewCategory();
+                    break;
+                case 'n':
+                case 'N':
+                    ua.editIncome();
+                    break;
+                case 's':
+                case 'S':
+                    ua.deleteExpense();
                     break;
                 case 'A':
                 case 'a':
@@ -65,7 +76,11 @@ public class ClientUser {
                     break;
                 case 'T':
                 case 't':
-                    ua.addTransaction();
+                    ua.addExpense();
+                    break;
+                case 'I':
+                case 'i':
+                    ua.addIncome();
                     break;
                 case 'L':
                 case 'l':
@@ -73,11 +88,11 @@ public class ClientUser {
                     break;
                 case 'B':
                 case 'b':
-                    ua.deleteTransaction();
+                    ua.deleteIncome();
                     break;
                 case 'R':
                 case 'r':
-                    ua.editTransaction();
+                    ua.editExpense();
                     break;
                 case 'u':
                 case 'U':

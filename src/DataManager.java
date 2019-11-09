@@ -139,11 +139,11 @@ public class DataManager {
         displayCategory();
     }
 
-    public void addTransaction(Transaction transaction){
+    public void addIncome(Transaction transaction){
         JSONParser jsonParser = new JSONParser();
         JSONArray transactionList = new JSONArray();
         int maxid = -1;
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/income.json"))
         {
                 Object obj = jsonParser.parse(reader);
                 transactionList = (JSONArray) obj;
@@ -161,11 +161,45 @@ public class DataManager {
         transactionDetails.put("Name",transaction.getName());
         transactionDetails.put("Amount",transaction.getAmount());
         transactionDetails.put("Description",transaction.getDescription());
-        transactionDetails.put("Category",transaction.getCategory());
-        transactionDetails.put("Type",transaction.getType());
         transactionDetails.put("Date",transaction.getDate().toString());
         transactionList.add(transactionDetails);
-        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/transaction.json")) {
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/income.json")) {
+
+            file.write(transactionList.toString());
+            file.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addExpense(Expense expense){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray transactionList = new JSONArray();
+        int maxid = -1;
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/expense.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            transactionList = (JSONArray) obj;
+            for (int i=0;i<transactionList.size();i++){
+                JSONObject temp= (JSONObject) transactionList.get(i);
+                if(Long.valueOf((Long) temp.get("transactionId")).intValue()>maxid) {
+                    maxid=Long.valueOf((Long) temp.get("transactionId")).intValue();
+                }
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        JSONObject transactionDetails = new JSONObject();
+        transactionDetails.put("transactionId",maxid+1);
+        transactionDetails.put("Name",expense.getName());
+        transactionDetails.put("Amount",expense.getAmount());
+        transactionDetails.put("Description",expense.getDescription());
+        transactionDetails.put("Date",expense.getDate().toString());
+        transactionDetails.put("Category",expense.getCategory().getName());
+        transactionList.add(transactionDetails);
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/expense.json")) {
 
             file.write(transactionList.toString());
             file.flush();
@@ -178,18 +212,14 @@ public class DataManager {
     public void displayExpense(){
         JSONParser jsonParser = new JSONParser();
         JSONArray transactionList=new JSONArray();
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/expense.json"))
         {
-
                 Object obj = jsonParser.parse(reader);
                 transactionList = (JSONArray) obj;
                 for (int i = 0; i < transactionList.size(); i++) {
                     JSONObject objects = (JSONObject) transactionList.get(i);
-                    if ((long)objects.get("Type") == 2) {
-                        System.out.println("Transaction ID :" + objects.get("transactionId") + "  Transaction Name  :" + objects.get("Name") + "  Amount :" + objects.get("Amount")+"  Description :"+objects.get("Description")+"   Category:"+objects.get("Category"));
-                    }
+                    System.out.println("Transaction ID :" + objects.get("transactionId") + "  Transaction Name  :" + objects.get("Name") + "  Amount :" + objects.get("Amount")+"  Description :"+objects.get("Description")+"   Category:"+objects.get("Category"));
                 }
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -202,15 +232,13 @@ public class DataManager {
     public void displayIncome(){
         JSONParser jsonParser = new JSONParser();
         JSONArray transactionList=new JSONArray();
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/income.json"))
         {
                 Object obj = jsonParser.parse(reader);
                 transactionList = (JSONArray) obj;
                 for (int i = 0; i < transactionList.size(); i++) {
                     JSONObject objects = (JSONObject) transactionList.get(i);
-                    if ((long)objects.get("Type") == 1) {
-                        System.out.println("Transaction ID :" + objects.get("transactionId") + "Transaction Name  :" + objects.get("Name") + "  Amount :" + objects.get("Amount")+"  Description :"+objects.get("Description")+"   Category:"+objects.get("Category"));
-                    }
+                    System.out.println("Transaction ID :" + objects.get("transactionId") + "Transaction Name  :" + objects.get("Name") + "  Amount :" + objects.get("Amount")+"  Description :"+objects.get("Description"));
                 }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -221,17 +249,17 @@ public class DataManager {
         }
     }
 
-    public void deleteTransaction(int id){
+    public void deleteIncome(int id){
         JSONParser jsonParser = new JSONParser();
         JSONArray Transactionlist= new JSONArray();
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/income.json"))
         {
             Object obj = jsonParser.parse(reader);
             Transactionlist = (JSONArray) obj;
             for(int i = 0; i < Transactionlist.size(); i++)
             {
                 JSONObject objects=(JSONObject) Transactionlist.get(i);
-                if((long)objects.get("Id")==id){
+                if((long)objects.get("transactionId")==id){
                     Transactionlist.remove(i);
                 }
             }
@@ -243,7 +271,37 @@ public class DataManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/transaction.json")) {
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/income.json")) {
+            file.write(Transactionlist.toString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        displayCategory();
+    }
+
+    public void deleteExpense(int id){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Transactionlist= new JSONArray();
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/expense.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Transactionlist = (JSONArray) obj;
+            for(int i = 0; i < Transactionlist.size(); i++)
+            {
+                JSONObject objects=(JSONObject) Transactionlist.get(i);
+                if((long)objects.get("transactionId")==id){
+                    Transactionlist.remove(i);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/expense.json")) {
             file.write(Transactionlist.toString());
             file.flush();
         } catch (IOException e) {
@@ -253,11 +311,11 @@ public class DataManager {
     }
 
 
-    public void editTransaction(String Name,double amount,int id,String description,String Category){
+    public void editExpense(String Name,double amount,int id,String description,String Category){
         JSONParser jsonParser = new JSONParser();
         JSONArray Categorylist= new JSONArray();
 
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/expense.json"))
         {
             Object obj = jsonParser.parse(reader);
             Categorylist = (JSONArray) obj;
@@ -270,7 +328,6 @@ public class DataManager {
                     objects.put("Amount",amount);
                     objects.put("Category",Category);
                     objects.put("Description",description);
-
                 }
             }
         } catch (FileNotFoundException e) {
@@ -280,7 +337,40 @@ public class DataManager {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/transaction.json")) {
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/expense.json")) {
+            file.write(Categorylist.toString());
+            file.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editIncome(String Name,double amount,int id,String description){
+        JSONParser jsonParser = new JSONParser();
+        JSONArray Categorylist= new JSONArray();
+
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/income.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            Categorylist = (JSONArray) obj;
+            JSONObject objects=null;
+            for(int i = 0; i < Categorylist.size(); i++)
+            {
+                objects=(JSONObject) Categorylist.get(i);
+                if((long)objects.get("transactionId")==id){
+                    objects.put("Name",Name);
+                    objects.put("Amount",amount);
+                    objects.put("Description",description);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        try (FileWriter file = new FileWriter("/Users/senthuran/Downloads/BudgetApp/income.json")) {
             file.write(Categorylist.toString());
             file.flush();
         } catch (IOException e) {
@@ -317,18 +407,15 @@ public class DataManager {
         JSONParser jsonParser = new JSONParser();
         JSONArray Transactionlist= new JSONArray();
         double income=0;
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/income.json"))
         {
             Object obj = jsonParser.parse(reader);
             Transactionlist = (JSONArray) obj;
             JSONObject objects=null;
             for(int i = 0; i < Transactionlist.size(); i++)
             {
-
                 objects=(JSONObject) Transactionlist.get(i);
-                if((long)objects.get("Type")==1)
-                    income+=(double)objects.get("Amount");
-
+                income+=(double)objects.get("Amount");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -340,11 +427,13 @@ public class DataManager {
       return income;
     }
 
+
+
     public double getTotalExpense(){
         JSONParser jsonParser = new JSONParser();
         JSONArray Transactionlist= new JSONArray();
         double expense=0;
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/expense.json"))
         {
             Object obj = jsonParser.parse(reader);
             Transactionlist = (JSONArray) obj;
@@ -352,8 +441,7 @@ public class DataManager {
             for(int i = 0; i < Transactionlist.size(); i++)
             {
                 objects=(JSONObject) Transactionlist.get(i);
-                if((long)objects.get("Type")==2)
-                    expense+=(double)objects.get("Amount");
+                expense+=(double)objects.get("Amount");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -363,6 +451,14 @@ public class DataManager {
             e.printStackTrace();
         }
         return expense;
+    }
+
+    public boolean isUniqueCatagory(String catagory){
+        HashSet<String> uniqueCategory=getUniqueCategory();
+        if(uniqueCategory.contains(catagory)){
+            return true;
+        }
+        return false;
     }
 
     public double getTotalBudget(){
@@ -394,7 +490,7 @@ public class DataManager {
         LinkedHashMap<String, Double> categoryamount=new LinkedHashMap<String, Double>();
         JSONParser jsonParser = new JSONParser();
         JSONArray Catagorylist= new JSONArray();
-        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/transaction.json"))
+        try (FileReader reader = new FileReader("/Users/senthuran/Downloads/BudgetApp/expense.json"))
         {
             Object obj = jsonParser.parse(reader);
             Catagorylist = (JSONArray) obj;
@@ -404,7 +500,7 @@ public class DataManager {
              for(int i = 0; i < Catagorylist.size(); i++)
             {
              objects=(JSONObject) Catagorylist.get(i);
-             if(objects.get("Category").equals(s)&& (long)objects.get("Type")==2) {
+             if(objects.get("Category").equals(s)) {
                  totalamount+=(double)objects.get("Amount");
              }
              categoryamount.put(s,totalamount);

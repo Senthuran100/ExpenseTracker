@@ -26,6 +26,10 @@ public class Category implements Serializable{
         return id;
     }
 
+    public Category(String name) {
+        Name = name;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
