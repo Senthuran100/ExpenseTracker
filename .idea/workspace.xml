@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="884265d6-24bb-4695-b836-c39e6913e0f4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BudgetApp/DataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BudgetApp/DataManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/BudgetApp/UserActivity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/BudgetApp/UserActivity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClientUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DataManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/UserActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/UserActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="884265d6-24bb-4695-b836-c39e6913e0f4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,10 +55,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/UserActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3555">
+            <state relative-caret-position="275">
               <caret line="237" lean-forward="true" selection-start-line="237" selection-end-line="237" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -122,11 +113,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DataManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="502" column="49" selection-start-line="502" selection-start-column="49" selection-end-line="502" selection-end-column="49" />
+            <state relative-caret-position="331">
+              <caret line="504" column="14" lean-forward="true" selection-start-line="504" selection-start-column="14" selection-end-line="504" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#15569#15585#0" expanded="true" />
@@ -220,7 +211,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573320226631" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573321021707" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -291,7 +282,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2973138" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -302,12 +292,12 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3291536" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.47126436" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.47126436" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39916405" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.23092999" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.4754441" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3291536" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3291536" />
@@ -513,23 +503,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/UserActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/DataManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3555">
-          <caret line="237" lean-forward="true" selection-start-line="237" selection-end-line="237" />
+        <state relative-caret-position="331">
+          <caret line="504" column="14" lean-forward="true" selection-start-line="504" selection-start-column="14" selection-end-line="504" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#15569#15585#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DataManager.java">
+    <entry file="file://$PROJECT_DIR$/src/UserActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="502" column="49" selection-start-line="502" selection-start-column="49" selection-end-line="502" selection-end-column="49" />
+        <state relative-caret-position="275">
+          <caret line="237" lean-forward="true" selection-start-line="237" selection-end-line="237" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#15569#15585#0" expanded="true" />
           </folding>
         </state>
       </provider>
